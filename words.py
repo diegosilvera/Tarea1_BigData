@@ -72,7 +72,7 @@ def N_most_common_words_in_news_two(id_file_1,id_file_2,N):
 def N_most_common_words_in_news_X(X, N):
     N_most_common=[]
     for id_file in X:
-        N_most_common.append(N_most_common__words_in_news(id_file,N))
+        N_most_common.append(N_most_common_words_in_news(id_file,N))
     return N_most_common
 
 # g. Retorna una tupla de dos elementos, donde el primero de estos corresponde al nombre del archivo en una lista de X archivos en el que aparece más veces cierta palabra,
