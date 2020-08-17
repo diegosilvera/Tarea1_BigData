@@ -64,7 +64,7 @@ def N_most_common_words_in_news(id_file='reut2-002.sgm', N):
 # param id_file_2 el nombre del segundo archivo
 # param N el número de palabras
 def N_most_common_words_in_news_two(id_file_1,id_file_2,N):
-    return N_most_common_in_news(id_file_1,N),N_most_common_in_news(id_file_2,N)
+    return N_most_common_words_in_news(id_file_1,N),N_most_common_words_in_news(id_file_2,N)
 
 # f. Retorna una lista con una cierta cantidad de elementos donde cada elemento es una lista que está en biyección con cada archivo en una lista X de archivos
 # param X lista con nombres de archivos
@@ -72,7 +72,7 @@ def N_most_common_words_in_news_two(id_file_1,id_file_2,N):
 def N_most_common_words_in_news_X(X, N):
     N_most_common=[]
     for id_file in X:
-        N_most_common.append(N_most_common__words_in_news(id_file,N))
+        N_most_common.append(N_most_common_words_in_news(id_file,N))
     return N_most_common
 
 # g. Retorna una tupla de dos elementos, donde el primero de estos corresponde al nombre del archivo en una lista de X archivos en el que aparece más veces cierta palabra,
