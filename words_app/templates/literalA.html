@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 id="titulo">Entrega</h3>
+    <button id="changeBtn" type="button" class="btn btn-primary">Cambiar titulo</button>
+{% endblock %}
+
+{% block js %}
+<script>
+    $("#changeBtn").click(function () {
+        $("#titulo").text("Nuevo texto");
+    });
+</script>
+{% endblock %}

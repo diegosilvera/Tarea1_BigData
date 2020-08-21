@@ -99,7 +99,7 @@ words=N_most_common_words_in_news('reut2-002.sgm',int(N))
 print("Exportando resultados del reto c")
 fileRetoC = open(PATH+"resultados_reto_C.txt","w")
 for pair in words:
-    fileRetoC.write(pair[0])
+    fileRetoC.write(pair[0]+"\n")
 fileRetoC.close()
 
 #Exportando respuesta reto d
@@ -112,10 +112,11 @@ words=N_most_common_words_in_news(id_file,int(N))
 print("Exportando resultados del reto d")
 fileRetoD = open(PATH+"resultados_reto_D.txt","w")
 for w in words:
-    fileRetoD.write(w[0])
+    fileRetoD.write(w[0]+"\n")
 fileRetoD.close()
 
 #---------------------------------------------E:EXPORTANDO ARCHIVOS DE RETOS A-D CON 2 ARCHIVOS---------------------------- 
+print("------------E:EXPORTANDO ARCHIVOS DE RETOS A-D CON 2 ARCHIVOS----------------")
 #Exportando respuesta reto a
 print("Procesando reto E-A...")
 how_many_w=how_many_words('reut2-002.sgm')+how_many_words('reut2-013.sgm')
@@ -144,3 +145,64 @@ print("Procesando reto E-D...")
 words=N_most_common_words_in_news(id_file,N)+N_most_common_words_in_news(id_file2,N)
 print("Exportando resultados del reto E-D")
 #---------------------------------------------F:EXPORTANDO ARCHIVOS DE RETOS A-D CON X ARCHIVOS---------------------------- 
+print("------------F:EXPORTANDO ARCHIVOS DE RETOS A-D CON X ARCHIVOS----------------")
+print("Digite el numero de archivos: ")
+X=input()
+files_array=[]
+for i in range(0,int(X)):
+    print("Digite nombre del archivo #"+str(i+1))
+    files_array.append(input())
+#Exportando respuesta reto a
+print("Procesando reto F-A...")
+for f in files_array:
+    how_many_w+=how_many_words(f)
+print("Exportando resultados del reto F-A")
+
+#Exportando respuesta reto b
+print("Procesando reto F-B...")
+for f in files_array:
+    #times+=reto_b(f)
+print("Exportando resultados del reto F-B")
+
+#Exportando respuesta reto c y d
+print("Digite el numero de palabras:")
+N=input()
+print("Procesando reto F-C y D...")
+for f in files_array:
+    words+=N_most_common_words_in_news(f,int(N))
+print("Exportando resultados del reto F-C y D")
+#--------------------------------------------------------------G---------------------------------------------------------
+# g. Retorna una tupla de dos elementos, donde el primero de estos corresponde al nombre del archivo en una lista de X archivos en el que aparece más veces cierta palabra,
+#    y el segundo elemento dice cuál archivo tiene más palabras.
+# param X lista con nombres de archivos
+# param word la palabra escogida
+def which_file_has_more_ocurrences(X,word):
+    words_ocurrences=[]
+    lengths=[]
+    for id_file in X:
+        length=how_many_words(id_file)
+        times=how_many_times(id_file,word)
+        lengths.append(length)
+        words_ocurrences.append(times)
+
+    words_ocurrences=np.array(words_ocurrences)
+    lengths=np.array(lengths)
+    return X[np.argmax(words_ocurrences)],X[np.argmax(lengths)]
+
+
+print("------------G----------------")
+print("Digite el numero de archivos: ")
+X=input()
+files_array=[]
+for i in range(0,int(X)):
+    print("Digite nombre del archivo #"+str(i+1))
+    files_array.append(input())
+print("Digite la palabra: ")
+word=input()
+print("Procesando reto G...")
+resultado=which_file_has_more_ocurrences(files_array,word)
+print("Exportando resultados del reto G")
+fileRetoG = open(PATH+"resultados_reto_G.txt","w")
+#####TODO revisar
+fileRetoG.write(resultado)
+fileRetoG.close()
