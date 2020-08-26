@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+{% block content %}
+<body>
+
+<h1>Estos son los archivos que puede abordar</h1>
+
+<label for "Noticias">Seleccione un archivo:</label>
+<form action="{% url 'conteo' %}" method="post">
+{% csrf_token %}
+<select id="Noticias" name="Noticias" size=22>
+{% for news in news_list %}
+  <option value={{news.id}} name="choice" id="choice{{forloop.counter}}">{{news.news_id}}</option>
+{% endfor %}
+</select>
+<input type="submit" value="Enviar">
+</form>    
+</body>
+{% endblock %}
+
