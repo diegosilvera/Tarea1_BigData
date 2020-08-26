@@ -6,7 +6,7 @@ urlpatterns = [
     path('literalA', views.literalA, name='literalA'),
     path('literalB', views.literalB, name='literalB'),
     path('literalC', views.literalC, name='literalC'),
-    path('literalD',views.literalD,name='conteo'),
+    path('literalD', views.literalD, name='literalD'),
     path('literalE', views.literalE, name='literalE'),
     path('literalF', views.literalF, name='literalF'),
 ]
