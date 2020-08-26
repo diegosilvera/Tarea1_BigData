@@ -1,3 +1,17 @@
-{% extends "base.html" %}
+{% extends "base.html"%}
 
 {% block title %}Big data - Grupo 10{% endblock %}
+{% block content %}
+  <main>
+    <p>Aquí se visualizan los literal A-F de la aplicación web:</p>
+    {% if literal_list%}
+        <ul>
+        {% for literal in literal_list%}
+            <li><a href="/{{literal}}">{{literal}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+  </main>
+{% endblock %}
+
+
