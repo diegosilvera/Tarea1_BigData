@@ -4,6 +4,8 @@ Created on Sun Aug 16 08:46:46 2020
 
 @author: Dell Inspiron14-3443
 """
+import sys
+
 from bs4 import BeautifulSoup
 import urllib.request
 import tarfile as tf
@@ -15,9 +17,9 @@ PATH="../Resultados/"
 if not os.path.exists(os.path.dirname(PATH)):
     os.makedirs(os.path.dirname(PATH))
 
-#tfstream=urllib.request.urlopen('https://archive.ics.uci.edu/ml/machine-learning-databases/reuters21578-mld/reuters21578.tar.gz')
-#reuters=tf.open(fileobj=tfstream,mode='r:gz')
-reuters=tf.open("../reuters21578.tar.gz",mode='r:gz')
+tfstream=urllib.request.urlopen('https://archive.ics.uci.edu/ml/machine-learning-databases/reuters21578-mld/reuters21578.tar.gz')
+reuters=tf.open(fileobj=tfstream,mode='r:gz')
+#reuters=tf.open("../reuters21578.tar.gz",mode='r:gz')
 reuters.extractall()
 reuters.close()
 
@@ -142,7 +144,7 @@ id_file=input()
 print("Digite nombre del segundo archivo:")
 id_file2=input()
 print("Procesando reto E-D...")
-words=N_most_common_words_in_news(id_file,N)+N_most_common_words_in_news(id_file2,N)
+words=N_most_common_words_in_news(id_file,int(N))+N_most_common_words_in_news(id_file2,int(N))
 print("Exportando resultados del reto E-D")
 #---------------------------------------------F:EXPORTANDO ARCHIVOS DE RETOS A-D CON X ARCHIVOS---------------------------- 
 print("------------F:EXPORTANDO ARCHIVOS DE RETOS A-D CON X ARCHIVOS----------------")
@@ -160,7 +162,7 @@ print("Exportando resultados del reto F-A")
 
 #Exportando respuesta reto b
 print("Procesando reto F-B...")
-for f in files_array:
+#for f in files_array:
     #times+=reto_b(f)
 print("Exportando resultados del reto F-B")
 
@@ -206,3 +208,34 @@ fileRetoG = open(PATH+"resultados_reto_G.txt","w")
 #####TODO revisar
 fileRetoG.write(resultado)
 fileRetoG.close()
+
+print("------------H----------------")
+# Estructura del comando UNIX: python words.py <archivo1> <num_palabras_archivo1> <archivo2> <num_palabras_archivo2 <archivo3> <num_palabras_archivo3>
+# Inicia proceso primer archivo
+words_primer_proceso = N_most_common_words_in_news(sys.argv[1],int(sys.argv[2]))
+print("Exportando resultados del primer proceso")
+fileRetoH1 = open(PATH+"resultados_reto_H_archivo1.txt","w")
+for w in words_primer_proceso:
+    fileRetoH1.write(w[0]+"\n")
+fileRetoH1.close()
+# Inicia proceso segundo archivo
+words_segundo_proceso = N_most_common_words_in_news(sys.argv[3],int(sys.argv[4]))
+print("Exportando resultados del segundo proceso")
+fileRetoH2 = open(PATH+"resultados_reto_H_archivo2.txt","w")
+for w in words_segundo_proceso:
+    fileRetoH2.write(w[0]+"\n")
+fileRetoH2.close()
+# Inicia proceso tercer archivo
+words_tercer_proceso = N_most_common_words_in_news(sys.argv[5],int(sys.argv[6]))
+print("Exportando resultados del tercer proceso")
+fileRetoH3 = open(PATH+"resultados_reto_H_archivo3.txt","w")
+for w in words_tercer_proceso:
+    fileRetoH3.write(w[0]+"\n")
+fileRetoH3.close()
+
+print("Finaliza reto H")
+
+print("------------I----------------")
+# Al pasar los demas procesos a la estructura django deberia quedar solo el punto h en este script
+# El siguiente comando ejecuta el script cada domingo a las 8:00am utilizando crontab
+# 0 8 * * 0 /Tarea1_BigData python words.py reut2-000.sgm 2 reut2-004.sgm 1 reut2-006.sgm 4
