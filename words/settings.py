@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'words_app.app.apps.WordsTarea1Config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
