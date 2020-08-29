@@ -14,14 +14,15 @@ from collections import Counter
 from itertools import chain
 import numpy as np
 PATH="../Resultados/"
+PATH_DATA="../dataset/"
 if not os.path.exists(os.path.dirname(PATH)):
     os.makedirs(os.path.dirname(PATH))
 
-tfstream=urllib.request.urlopen('https://archive.ics.uci.edu/ml/machine-learning-databases/reuters21578-mld/reuters21578.tar.gz')
-reuters=tf.open(fileobj=tfstream,mode='r:gz')
+#tfstream=urllib.request.urlopen('https://archive.ics.uci.edu/ml/machine-learning-databases/reuters21578-mld/reuters21578.tar.gz')
+#reuters=tf.open(fileobj=tfstream,mode='r:gz')
 #reuters=tf.open("../reuters21578.tar.gz",mode='r:gz')
-reuters.extractall()
-reuters.close()
+#reuters.extractall(path="")
+#reuters.close()
 
 #a. Cuenta el número de palabras en un archivo, dado el nombre del archivo. Por defecto, escogimos reut2-002.sgm
 # param id_file el nombre del archivo escogido.
@@ -69,7 +70,7 @@ def N_most_common_words_in_news(id_file, N):
 #----------------------------------------------------------------------------------------------------------------------
 #Exportando respuesta reto a
 print("Procesando reto a...")
-how_many_w=how_many_words('reut2-002.sgm')
+how_many_w=how_many_words(PATH_DATA+'reut2-002.sgm')
 print("Exportando resultados del reto a")
 fileRetoA = open(PATH+"resultados_reto_A.txt","w")
 fileRetoA.write("El archivo reut2-002.sgm tiene "+str(how_many_w)+" palabras")
@@ -77,7 +78,7 @@ fileRetoA.close()
 
 #Exportando respuesta reto b
 def reto_b(id_file):
-    words=words_in_news(id_file)
+    words=words_in_news(PATH_DATA+id_file)
     times=[]
     for wordList in words:
         for word in wordList:
@@ -86,7 +87,7 @@ def reto_b(id_file):
     return times
 
 print("Procesando reto b...")
-#times=reto_b('reut2-002.sgm')
+#times=reto_b(PATH_DATA+'reut2-002.sgm')
 print("Exportando resultados del reto b")
 fileRetoB = open(PATH+"resultados_reto_B.txt","w")
 #for frase in times:
@@ -97,7 +98,7 @@ fileRetoB.close()
 print("Digite el numero de palabras:")
 N=input()
 print("Procesando reto c...")
-words=N_most_common_words_in_news('reut2-002.sgm',int(N))
+words=N_most_common_words_in_news(PATH_DATA+'reut2-002.sgm',int(N))
 print("Exportando resultados del reto c")
 fileRetoC = open(PATH+"resultados_reto_C.txt","w")
 for pair in words:
@@ -110,7 +111,7 @@ N=input()
 print("Digite nombre del archivo:")
 id_file=input()
 print("Procesando reto d...")
-words=N_most_common_words_in_news(id_file,int(N))
+words=N_most_common_words_in_news(PATH_DATA+id_file,int(N))
 print("Exportando resultados del reto d")
 fileRetoD = open(PATH+"resultados_reto_D.txt","w")
 for w in words:
@@ -121,19 +122,19 @@ fileRetoD.close()
 print("------------E:EXPORTANDO ARCHIVOS DE RETOS A-D CON 2 ARCHIVOS----------------")
 #Exportando respuesta reto a
 print("Procesando reto E-A...")
-how_many_w=how_many_words('reut2-002.sgm')+how_many_words('reut2-013.sgm')
+how_many_w=how_many_words(PATH_DATA+'reut2-002.sgm')+how_many_words(PATH_DATA+'reut2-013.sgm')
 print("Exportando resultados del reto E-A")
 
 #Exportando respuesta reto b
 print("Procesando reto E-B...")
-#times=reto_b('reut2-002.sgm')+reto_b('reut2-013.sgm')
+#times=reto_b(PATH_DATA+'reut2-002.sgm')+reto_b(PATH_DATA+'reut2-013.sgm')
 print("Exportando resultados del reto E-B")
 
 #Exportando respuesta reto c
 print("Digite el numero de palabras:")
 N=input()
 print("Procesando reto E-C...")
-words=N_most_common_words_in_news('reut2-002.sgm',int(N))+N_most_common_words_in_news('reut2-013.sgm',int(N))
+words=N_most_common_words_in_news(PATH_DATA+'reut2-002.sgm',int(N))+N_most_common_words_in_news(PATH_DATA+'reut2-013.sgm',int(N))
 print("Exportando resultados del reto E-C")
 
 #Exportando respuesta reto d
@@ -144,7 +145,7 @@ id_file=input()
 print("Digite nombre del segundo archivo:")
 id_file2=input()
 print("Procesando reto E-D...")
-words=N_most_common_words_in_news(id_file,int(N))+N_most_common_words_in_news(id_file2,int(N))
+words=N_most_common_words_in_news(PATH_DATA+id_file,int(N))+N_most_common_words_in_news(PATH_DATA+id_file2,int(N))
 print("Exportando resultados del reto E-D")
 #---------------------------------------------F:EXPORTANDO ARCHIVOS DE RETOS A-D CON X ARCHIVOS---------------------------- 
 print("------------F:EXPORTANDO ARCHIVOS DE RETOS A-D CON X ARCHIVOS----------------")
@@ -157,13 +158,13 @@ for i in range(0,int(X)):
 #Exportando respuesta reto a
 print("Procesando reto F-A...")
 for f in files_array:
-    how_many_w+=how_many_words(f)
+    how_many_w+=how_many_words(PATH_DATA+f)
 print("Exportando resultados del reto F-A")
 
 #Exportando respuesta reto b
 print("Procesando reto F-B...")
 #for f in files_array:
-    #times+=reto_b(f)
+    #times+=reto_b(PATH_DATA+f)
 print("Exportando resultados del reto F-B")
 
 #Exportando respuesta reto c y d
@@ -171,7 +172,7 @@ print("Digite el numero de palabras:")
 N=input()
 print("Procesando reto F-C y D...")
 for f in files_array:
-    words+=N_most_common_words_in_news(f,int(N))
+    words+=N_most_common_words_in_news(PATH_DATA+f,int(N))
 print("Exportando resultados del reto F-C y D")
 #--------------------------------------------------------------G---------------------------------------------------------
 # g. Retorna una tupla de dos elementos, donde el primero de estos corresponde al nombre del archivo en una lista de X archivos en el que aparece más veces cierta palabra,
@@ -182,8 +183,8 @@ def which_file_has_more_ocurrences(X,word):
     words_ocurrences=[]
     lengths=[]
     for id_file in X:
-        length=how_many_words(id_file)
-        times=how_many_times(id_file,word)
+        length=how_many_words(PATH_DATA+id_file)
+        times=how_many_times(PATH_DATA+id_file,word)
         lengths.append(length)
         words_ocurrences.append(times)
 
@@ -212,21 +213,21 @@ fileRetoG.close()
 print("------------H----------------")
 # Estructura del comando UNIX: python words.py <archivo1> <num_palabras_archivo1> <archivo2> <num_palabras_archivo2 <archivo3> <num_palabras_archivo3>
 # Inicia proceso primer archivo
-words_primer_proceso = N_most_common_words_in_news(sys.argv[1],int(sys.argv[2]))
+words_primer_proceso = N_most_common_words_in_news(PATH_DATA+sys.argv[1],int(sys.argv[2]))
 print("Exportando resultados del primer proceso")
 fileRetoH1 = open(PATH+"resultados_reto_H_archivo1.txt","w")
 for w in words_primer_proceso:
     fileRetoH1.write(w[0]+"\n")
 fileRetoH1.close()
 # Inicia proceso segundo archivo
-words_segundo_proceso = N_most_common_words_in_news(sys.argv[3],int(sys.argv[4]))
+words_segundo_proceso = N_most_common_words_in_news(PATH_DATA+sys.argv[3],int(sys.argv[4]))
 print("Exportando resultados del segundo proceso")
 fileRetoH2 = open(PATH+"resultados_reto_H_archivo2.txt","w")
 for w in words_segundo_proceso:
     fileRetoH2.write(w[0]+"\n")
 fileRetoH2.close()
 # Inicia proceso tercer archivo
-words_tercer_proceso = N_most_common_words_in_news(sys.argv[5],int(sys.argv[6]))
+words_tercer_proceso = N_most_common_words_in_news(PATH_DATA+sys.argv[5],int(sys.argv[6]))
 print("Exportando resultados del tercer proceso")
 fileRetoH3 = open(PATH+"resultados_reto_H_archivo3.txt","w")
 for w in words_tercer_proceso:
