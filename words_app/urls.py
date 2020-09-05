@@ -9,4 +9,5 @@ urlpatterns = [
     path('literalD', views.literalD, name='literalD'),
     path('literalE', views.literalE, name='literalE'),
     path('literalF', views.literalF, name='literalF'),
+    path('procesamiento_archivos/', views.procesamiento_archivos, name='procesamiento_archivos'),
 ]

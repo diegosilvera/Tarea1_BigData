@@ -3,7 +3,3 @@
 venv/*
 *.pyc
 *.sqlite3
-*.txt
-*.sgm
-*.dtd
-Resultados/*
