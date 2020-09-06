@@ -1,11 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
-import requests
-from django.views.decorators.csrf import csrf_exempt
 
 from words.settings import DATASET_URL
 from words_app.models import Procesamiento
-from words_app.words import how_many_words, words_in_news, how_many_times
+from words_app.words import how_many_words, words_in_news, how_many_times, N_most_common_words_in_news
 
 
 def index(request):
@@ -36,9 +33,10 @@ def procesamiento_archivos(request):
         solicitud.archivo = request.POST['archivo']
         solicitud.numero_palabras = request.POST['numero_palabras']
 
-        resultados = ['resultados']
+        resultados = []
         resultados.append(reto_a(DATASET_URL+solicitud.archivo))
-        resultados.append(reto_b(DATASET_URL + solicitud.archivo))
+        #resultados.append(reto_b(DATASET_URL + solicitud.archivo))
+        resultados.append(reto_c(DATASET_URL + solicitud.archivo, int(solicitud.numero_palabras)))
 
         solicitud.resultado = resultados
         solicitud.save()
@@ -49,7 +47,7 @@ def procesamiento_archivos(request):
 
 def reto_a(file):
     total_palabras = how_many_words(file)
-    return {"total_palabras": total_palabras}
+    return {"reto_a": total_palabras}
 
 def reto_b(file):
     words=words_in_news(file)
@@ -58,4 +56,8 @@ def reto_b(file):
         for word in wordList:
             how_many_t=how_many_times(file,word)
             times.append(word+":"+str(how_many_t))
-    return {"repeticiones": times}
+    return {"reto_b": times}
+
+def reto_c(file, n):
+    words=N_most_common_words_in_news(file,n)
+    return {"reto_c": words}
